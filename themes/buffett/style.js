@@ -227,6 +227,33 @@ const Style = () => {
         animation: fadeUp .8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
+      /* Archive & Categories */
+      .category-card {
+        background: white;
+        border: 1px solid rgba(26, 35, 50, 0.05);
+        padding: 2rem;
+        transition: all 0.3s ease;
+      }
+      .category-card:hover {
+        border-color: var(--gold);
+        box-shadow: 0 10px 30px rgba(184, 134, 11, 0.1);
+        transform: translateY(-4px);
+      }
+      .archive-year {
+        font-size: 1.5rem;
+        color: var(--gold);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-style: italic;
+      }
+      .archive-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px dashed rgba(0,0,0,0.05);
+      }
+
       @media(max-width: 768px) {
         #theme-buffett .sidebar {
           transform: translateX(-100%);
