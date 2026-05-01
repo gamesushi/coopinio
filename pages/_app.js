@@ -37,19 +37,34 @@ const MyApp = ({ Component, pageProps }) => {
       pageProps?.NOTION_CONFIG?.THEME ||
       BLOG.THEME
     )
-  }, [route])
+  }, [route.asPath, pageProps])
 
   // 整体布局
   const GLayout = useCallback(
     props => {
       const Layout = getBaseLayoutByTheme(theme)
-      return <Layout {...props} />
+      return <Layout {...props}>{props.children}</Layout>
     },
     [theme]
   )
 
-  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-  const content = (
+  const enableClerk = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+
+  if (enableClerk) {
+    return (
+      <ClerkProvider localization={zhCN}>
+        <GlobalContextProvider {...pageProps}>
+          <GLayout {...pageProps}>
+            <SEO {...pageProps} />
+            <Component {...pageProps} />
+          </GLayout>
+          <ExternalPlugins {...pageProps} />
+        </GlobalContextProvider>
+      </ClerkProvider>
+    )
+  }
+
+  return (
     <GlobalContextProvider {...pageProps}>
       <GLayout {...pageProps}>
         <SEO {...pageProps} />
@@ -57,15 +72,6 @@ const MyApp = ({ Component, pageProps }) => {
       </GLayout>
       <ExternalPlugins {...pageProps} />
     </GlobalContextProvider>
-  )
-  return (
-    <>
-      {enableClerk ? (
-        <ClerkProvider localization={zhCN}>{content}</ClerkProvider>
-      ) : (
-        content
-      )}
-    </>
   )
 }
 

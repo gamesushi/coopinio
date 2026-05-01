@@ -16,7 +16,7 @@ const BlogPostListPage = props => {
       {posts.map(post => (
         <SmartLink
           key={post.id}
-          href={`${BLOG.SUB_PATH}/${post.slug}`}
+          href={`${siteConfig('SUB_PATH', '')}/${post.slug}`}
           className="group relative p-6 bg-white border border-[#E0D6C8] rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-gold-light overflow-hidden"
         >
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>

@@ -53,22 +53,13 @@ const LayoutBase = props => {
 
         {/* Main Content Area */}
         <main className="flex-1 main min-h-screen overflow-x-hidden">
-          <div className="relative z-10">
-            <Transition
-              show={!onLoading}
-              appear={true}
-              enter="transition ease-in-out duration-700 transform"
-              enterFrom="opacity-0 translate-y-4"
-              enterTo="opacity-100 translate-y-0"
-              unmount={false}
-            >
+            <div className="relative z-10">
               {headerSlot}
               {slotTop}
               <div className="max-w-5xl mx-auto px-6 py-12">
                 {children}
               </div>
-            </Transition>
-          </div>
+            </div>
 
           {/* Footer */}
           <footer className="py-12 px-6 border-t border-gray-100 text-center text-xs text-gray-400 font-serif">
@@ -77,7 +68,7 @@ const LayoutBase = props => {
         </main>
 
         {/* Search Modal */}
-        <AlgoliaSearchModal cRef={searchModal} {...props} />
+        {/* <AlgoliaSearchModal cRef={searchModal} {...props} /> */}
       </div>
     </ThemeGlobalBuffett.Provider>
   )
@@ -109,7 +100,8 @@ const LayoutSlug = props => {
 
   return (
     <div className="article-wrapper">
-       {post && (
+       {lock && <div className="max-w-5xl mx-auto px-6 py-12 text-center font-serif text-gray-500">🔒 该文章已加密</div>}
+       {!lock && post && (
          <article id="article-wrapper" className="notion">
             <h1 className="text-4xl font-serif font-black mb-6 leading-tight text-navy">{post.title}</h1>
             <div className="flex items-center gap-6 text-xs text-gray-400 mb-10 pb-6 border-b border-gray-100 font-serif">
@@ -124,7 +116,7 @@ const LayoutSlug = props => {
                     </span>
                 )}
             </div>
-            <NotionPage post={post} />
+            {post.blockMap ? <NotionPage post={post} /> : <div className="py-20 text-center text-gray-300">加载中...</div>}
          </article>
        )}
     </div>
